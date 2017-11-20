@@ -1,0 +1,147 @@
+﻿@model ARC.Models.Review
+
+<h2>Reviews for Angel Romero Construction, LLC</h2>
+
+<div class="row" style="padding-bottom:10px">
+    Please help me improve my services by sending me some feedback on my work.
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="btn btn-primary btn-block" id="reviewButton" align="left">
+            @*Write a review*@
+        </div>
+    </div>
+    <div class="col-md-8"></div>
+</div>
+
+<div class="row">
+    <div id="reviewForm">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <br />
+            <div class="row">
+                <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.name)</strong></div>
+                <div class="col-md-11">@Html.EditorFor(model => model.name)</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11"> @Html.ValidationMessageFor(model => model.name)</div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.title)</strong></div>
+                <div class="col-md-11">@Html.EditorFor(model => model.title)</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">@Html.ValidationMessageFor(model => model.title)</div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.rating)</strong></div>
+                <div class="col-md-11 ">@Html.EditorFor(model => model.rating, new {htmlAttributes = new{min = 1, max = 5} })</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">@Html.ValidationMessageFor(model => model.rating)</div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.comment)</strong></div>
+                <div class="col-md-11" contenteditable="true">@Html.TextAreaFor(model => model.comment)</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">@Html.ValidationMessageFor(model => model.comment)</div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <input type="submit" value="submit" id="submitButton"/>
+                    <input type="reset" value="reset" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <h3>Reviews from my clients</h3>
+</div>
+
+@{
+    foreach (var item in Model.reviews)
+    {
+        <div class="row" style="padding-bottom:10px">
+
+            <div class="row">
+                <div class="col-md-2">
+                    @for (int count = 1; count <= 5; count++)
+                    {
+                        if (count <= item.rating)
+                        {
+                            <span class="glyphicon glyphicon-star"></span>
+                        }
+                        else
+                        {
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                        }
+                    }
+                </div>
+                <div class="col-md-10 col-md-pull-1">
+                    <span><strong>@item.title</strong></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">By <span class="text-info"><strong>@item.name</strong></span> on @item.creationDate.ToString("d")</div>
+            </div>
+
+            <div class="row line-break-5px">
+                <div class="col-md-12">@item.comment</div>
+            </div>
+
+        </div>
+    }
+}
+
+@section Scripts {
+    <script src="~/Scripts/custom.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var showFlag = false;
+
+            if ("@ViewBag.AddMode" == "False") {
+                showFlag = false;
+                $("#reviewForm").hide();
+                $("#reviewButton").text('Write review');
+            }
+
+            else {
+                showFlag = true;
+                $("#reviewForm").show();
+                $("#reviewButton").text('Cancel review');
+            }
+
+            $("#reviewButton").click(function () {
+
+                if (!showFlag) {
+                    $("#reviewForm").slideDown();
+                    $("#reviewButton").text('Cancel review');
+                    showFlag = true;
+                }
+
+                else {
+                    $("#reviewForm").slideUp();
+                    $(".field-validation-error").hide();
+                    $("#reviewButton").text('Write review');
+                    showFlag = false;
+                }
+            });
+
+        })
+    </script>
+}

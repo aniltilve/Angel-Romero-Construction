@@ -1,0 +1,63 @@
+﻿@model ARC.Models.Contact
+@{
+    ViewBag.Title = "Contact Me";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="row">
+    You can contact me by filling out and submitting the form below. I will attempt to reach you at my earliest possible convenience. Thank you.
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <br />
+    <div class="row">
+        <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.name )</strong></div>
+        <div class="col-md-11">@Html.EditorFor(model => model.name)</div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11"> @Html.ValidationMessageFor(model => model.name)</div>
+    </div>
+    <br />
+        <div class="row">
+            <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.phone)</strong></div>
+            <div class="col-md-11">@Html.EditorFor(model => model.phone)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">@Html.ValidationMessageFor(model => model.phone)</div>
+        </div>
+    <br />
+        <div class="row">
+            <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.email)</strong></div>
+            <div class="col-md-11">@Html.EditorFor(model => model.email)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">@Html.ValidationMessageFor(model => model.email)</div>
+        </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.comment)</strong></div>
+        <div class="col-md-11">@Html.TextAreaFor(model => model.comment)</div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">@Html.ValidationMessageFor(model => model.comment)</div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <input type="submit" value="submit" />
+            <input type="reset" value="reset" />
+        </div>
+    </div>    
+}
+
+@section Scripts {
+    <script src="~/Scripts/custom.js"></script>
+}

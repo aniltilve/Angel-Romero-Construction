@@ -1,0 +1,40 @@
+﻿@model ARC.Models.Review
+@{
+    ViewBag.Title = "Rate Me";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="row">
+    You can contact me by filling out and submitting the form below. I will attempt to reach you at my earliest possible convenience. Thank you.
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <br />
+    <div class="row">
+        <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.Title)</strong></div>
+        <div class="col-md-11">@Html.EditorFor(model => model.Title)</div>
+    </div>
+    <br />
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <div class="col-md-1"><strong>@Html.DisplayNameFor(model => model.Comment)</strong></div>
+        <div class="col-md-11">@Html.TextAreaFor(model => model.Comment)</div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">@Html.ValidationMessageFor(model => model.Comment)</div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <input type="submit" value="submit" />
+            <input type="reset" value="reset" />
+        </div>
+    </div>
+}
